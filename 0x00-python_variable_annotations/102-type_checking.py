@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """ Type Checking Module """
-from typing import Tuple
+from typing import Tuple, List
 
 
-def zoom_array(lst: Tuple, factor: int = 2) -> Tuple:
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
     """
     Fuction that zooms
     Args:
@@ -12,10 +12,10 @@ def zoom_array(lst: Tuple, factor: int = 2) -> Tuple:
     Return:
         tuple
     """
-    zoomed_in: Tuple = tuple([
+    zoomed_in: List = [
         item for item in lst
         for i in range(factor)
-    ])
+    ]
     return zoomed_in
 
 
