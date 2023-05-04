@@ -2,7 +2,6 @@
 """ task_wait_n module """
 import asyncio
 from typing import List
-
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
@@ -15,10 +14,11 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
     Return:
         delay (list) - lis of list of all the delays  in accending order
     """
-    delays = []
+    tasks: List[float] = []
+    all_tasks: List[float] = []
     for i in range(n):
-        task = task_wait_random(max_delay)
-        await task
-        delay = task.result()
-        delays.append(delay)
-    return delays
+        tasks.append(task_wait_random(max_delay))
+    for delay in asyncio.as_completed(tasks):
+        result = await delay
+        all_tasks.append(result)
+    return all_tasks
