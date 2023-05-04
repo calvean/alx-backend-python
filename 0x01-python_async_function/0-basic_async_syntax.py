@@ -3,6 +3,7 @@
 import asyncio
 import random
 
+
 async def wait_random(max_delay=10):
     """
     asynchronous coroutine
