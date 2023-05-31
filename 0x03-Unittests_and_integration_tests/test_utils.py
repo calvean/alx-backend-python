@@ -81,7 +81,7 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """Test case class for the memoize decorator."""
 
-    def test_memoize(self) -> None:
+    def test_memoize(self):
         """
         Test the memoize decorator.
 
@@ -89,28 +89,24 @@ class TestMemoize(unittest.TestCase):
           None
 
         Raises:
-          AssertionError: If the correct result is not returned
-           when calling a_property twice
+          AssertionError: If the correct result
+           is not returned when calling a_property twice
                           or if a_method is called more than once.
         """
         class TestClass:
-            def a_method(self) -> int:
-                """Method that returns an integer."""
+            def a_method(self):
                 return 42
 
             @memoize
-            def a_property(self) -> int:
-                """Property that calls a_method and returns an integer."""
+            def a_property(self):
                 return self.a_method()
 
         with patch.object(TestClass, 'a_method') as mock_a_method:
             test_instance = TestClass()
 
-            result1: int = test_instance.a_property()
-            result2: int = test_instance.a_property()
+            result1 = test_instance.a_property()
+            result2 = test_instance.a_property()
 
             self.assertEqual(result1, 42)
             self.assertEqual(result2, 42)
             mock_a_method.assert_called_once()
-
-            mockMethod.assert_called_once
