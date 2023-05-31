@@ -6,6 +6,7 @@ from parameterized import parameterized
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test case class for GithubOrgClient."""
 
@@ -19,14 +20,18 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient(org_name)
         result = client.org()
         self.assertEqual(result, TEST_PAYLOAD)
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
+        mock_get_json.assert_called_once_with(
+          f"https://api.github.com/orgs/{org_name}")
 
     def test_public_repos_url(self):
         """Test the _public_repos_url property of GithubOrgClient."""
         org_name = "holberton"
         repos_url = f"https://api.github.com/orgs/{org_name}/repos"
 
-        with patch.object(GithubOrgClient, "org", new_callable=PropertyMock, return_value={"repos_url": repos_url}) as mock_org:
+        with patch.object(
+          GithubOrgClient,
+          "org", new_callable=PropertyMock,
+          return_value={"repos_url": repos_url}) as mock_org:
             client = GithubOrgClient(org_name)
             result = client._public_repos_url
             self.assertEqual(result, repos_url)
@@ -39,13 +44,18 @@ class TestGithubOrgClient(unittest.TestCase):
         license_key = "MIT"
         expected_repos = ["repo1", "repo2"]
 
-        with patch.object(GithubOrgClient, "_public_repos_url", new_callable=PropertyMock, return_value="https://api.github.com/repos") as mock_repos_url:
+        with patch.object(
+          GithubOrgClient,
+          "_public_repos_url",
+          new_callable=PropertyMock,
+          return_value="https://api.github.com/repos") as mock_repos_url:
             client = GithubOrgClient(org_name)
             result = client.public_repos(license=license_key)
             self.assertEqual(result, expected_repos)
-            mock_get_json.assert_called_once_with("https://api.github.com/repos")
+            mock_get_json.assert_called_once_with(
+              "https://api.github.com/repos")
             mock_repos_url.assert_called_once
+
 
 if __name__ == "__main__":
     unittest.main()
-
