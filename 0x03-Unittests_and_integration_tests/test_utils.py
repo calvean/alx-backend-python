@@ -94,11 +94,14 @@ class TestMemoize(unittest.TestCase):
                           or if a_method is called more than once.
         """
         class TestClass:
+            """ test class used """
             def a_method(self):
+                """ a method to return 42 """
                 return 42
 
             @memoize
             def a_property(self):
+                """ a property to return a method """
                 return self.a_method()
 
         with patch.object(TestClass, 'a_method') as mock_a_method:
