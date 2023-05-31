@@ -31,25 +31,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b")),
     ])
     def test_access_nested_map_exception(self, nested_map, path):
-        """
-        Test that a KeyError is raised when accessing a non-existing key.
-
-        Parameters:
-          nested_map: A nested map/dictionary.
-          path: A sequence of keys representing the path to the value.
-
-        Returns:
-          None
-
-        Raises:
-          AssertionError: If a KeyError is not raised
-           or the exception message is not as expected.
-        """
-        with self.assertRaises(KeyError) as context:
+        """ method to test that a KeyError is raised properly """
+        with self.assertRaises(KeyError) as error:
             access_nested_map(nested_map, path)
-
-        actual_exception_msg = str(context.exception)
-
-        expected_exception_msg = f"KeyError: Key not found: {path[-1]}"
-
-        self.assertEqual(actual_exception_msg, expected_exception_msg)
+        self.assertEqual(error.exception.args[0], path[-1])
