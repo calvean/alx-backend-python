@@ -77,6 +77,7 @@ class TestGetJson(unittest.TestCase):
 
         result = get_json(test_url)
 
+
 class TestMemoize(unittest.TestCase):
     """ TESTCASE """
     def test_memoize(self):
