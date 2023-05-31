@@ -42,7 +42,6 @@ class TestAccessNestedMap(unittest.TestCase):
           None, else raise AssertionError, If a KeyError is not raised
            or the exception message is not as expected.
         """
-        with self.assertRaises(KeyError) as error_context:
+        with self.assertRaises(KeyError) as error:
             access_nested_map(nested_map, path)
-        error = error_context.exception
-        self.assertEqual(str(error), path[-1])
+        self.assertEqual(error.exception.args[0], path[-1])
